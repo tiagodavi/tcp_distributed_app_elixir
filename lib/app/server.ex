@@ -40,6 +40,7 @@ defmodule App.Server do
     case :gen_tcp.recv(conn, 0) do
       {:ok, data} ->
         data
+
       {:error, _} ->
         "Closed..."
     end

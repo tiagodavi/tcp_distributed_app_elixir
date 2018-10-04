@@ -10,6 +10,7 @@ defmodule App.Application do
     children = [
       # Starts a worker by calling: App.Worker.start_link(arg)
       # {App.Worker, arg},
+      {App.KickStarter, 8888}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
