@@ -27,4 +27,4 @@ you are looking for?
 you are looking for?
 ```
 
-My particular telnet client can be exited by typing ctrl + ], typing quit, and pressing <Enter>, but your client may require different steps.
+My particular telnet client can be exited by typing ctrl + ], typing quit, and pressing Enter, but your client may require different steps.
