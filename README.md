@@ -7,7 +7,7 @@
 
 ## Running TCP Server on the console.
 
-To run this open a console and start the server.
+Open a console and start the server.
 
 ```
 $ iex -S mix
@@ -23,12 +23,8 @@ $ telnet 127.0.0.1 4001
 Trying 127.0.0.1...
 Connected to localhost.
 Escape character is '^]'.
-hello
-hello
-is it me
-is it me
-you are looking for?
-you are looking for?
+This is Tiago
+This is Tiago
 ```
 
 My particular telnet client can be exited by typing ctrl + ], typing quit, and pressing Enter, but your client may require different steps.
@@ -45,3 +41,6 @@ Now you can visit [`localhost:8888`](http://localhost:8888) from your browser.
 
 Use /kaboom to raise an exception and start a new process.
 http://localhost:8888/kaboom
+
+Then try to run again on the root:
+http://localhost:8888
