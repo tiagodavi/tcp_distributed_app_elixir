@@ -16,14 +16,35 @@ defmodule App.KickStarter do
 
   def handle_info({:EXIT, _pid, reason}, port) do
     IO.puts("HttpServer exited (#{inspect(reason)})")
-    start_server(port)
+
+    if(valid_node?()) do
+      node =
+        [node() | Node.list()]
+        |> Enum.random()
+
+      start_server(node, port)
+    else
+      start_server(port)
+    end
+
     {:noreply, port}
   end
 
   defp start_server(port) do
-    IO.puts("Starting the HTTP server on port #{port}")
-    server_pid = spawn_link(App.HttpServer, :start, [port])
-    Process.register(server_pid, :http_server)
-    server_pid
+    unless(valid_node?()) do
+      IO.puts("Starting Master HTTP server on port #{port}")
+      start_server(node(), port)
+    end
+  end
+
+  defp start_server(node, port) do
+    Node.spawn_link(node, App.HttpServer, :start, [port])
+  end
+
+  defp valid_node? do
+    Application.get_env(:app, :nodes)
+    |> Enum.filter(&(&1 != node()))
+    |> Enum.map(&Node.connect/1)
+    |> Enum.any?(&(&1 === true))
   end
 end

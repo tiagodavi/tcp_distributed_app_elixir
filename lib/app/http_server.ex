@@ -37,8 +37,10 @@ defmodule App.HttpServer do
 
     IO.puts("⚡️  Connection accepted!\n")
 
+    http_server = self()
+
     # Receives the request and sends a response over the client socket.
-    spawn(fn -> serve(client_socket) end)
+    spawn(fn -> serve(client_socket, http_server) end)
 
     # Loop back to wait and accept the next connection.
     accept_loop(listen_socket)
@@ -48,12 +50,12 @@ defmodule App.HttpServer do
   Receives the request on the `client_socket` and
   sends a response back over the same socket.
   """
-  def serve(client_socket) do
+  def serve(client_socket, http_server) do
     IO.puts("#{inspect(self())}: Working on it!")
 
     client_socket
     |> read_request
-    |> Handler.handle()
+    |> Handler.handle(http_server)
     |> write_response(client_socket)
   end
 
@@ -62,12 +64,17 @@ defmodule App.HttpServer do
   """
   def read_request(client_socket) do
     # all available bytes
-    {:ok, request} = :gen_tcp.recv(client_socket, 0)
 
-    IO.puts("➡️  Received request:\n")
-    IO.puts(request)
+    case :gen_tcp.recv(client_socket, 0) do
+      {:ok, request} ->
+        IO.puts("➡️  Received request:\n")
+        IO.puts(request)
 
-    request
+        request
+
+      {:error, _} ->
+        "Closed..."
+    end
   end
 
   @doc """

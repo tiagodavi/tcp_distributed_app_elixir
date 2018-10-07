@@ -2,6 +2,9 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+# Cluster nodes
+config :app, nodes: [:"a@127.0.0.1", :"b@127.0.0.1", :"c@127.0.0.1"]
+
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,

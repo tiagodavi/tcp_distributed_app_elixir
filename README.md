@@ -31,15 +31,27 @@ My particular telnet client can be exited by typing ctrl + ], typing quit, and p
 
 ## Distributed HttpServer
 
-Running the command below automatically starts HttpServer too.
+Run the commands below on different terminals (The first will be the master node)
 
+Machine A
 ```
-$ iex -S mix
+$ iex --name a@127.0.0.1 -S mix
+```
+
+Machine B
+```
+$ iex --name b@127.0.0.1 -S mix
+```
+
+Machine C
+```
+$ iex --name c@127.0.0.1 -S mix
 ```
 
 Now you can visit [`localhost:8888`](http://localhost:8888) from your browser.
 
-Use /kaboom to raise an exception and start a new process.
+Use /kaboom to raise an exception and start a new process
+(eventually running in new machines)
 http://localhost:8888/kaboom
 
 Then try to run again on the root:
