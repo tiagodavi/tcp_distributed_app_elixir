@@ -35,18 +35,21 @@ Run the commands below on different terminals (The first will be the master node
 
 Machine A
 ```
-$ iex --name a@127.0.0.1 -S mix
+$ iex -S mix
 ```
 
 Machine B
 ```
-$ iex --name b@127.0.0.1 -S mix
+$ iex -S mix
 ```
 
 Machine C
 ```
-$ iex --name c@127.0.0.1 -S mix
+$ iex -S mix
 ```
+
+And so on...
+
 
 Now you can visit [`localhost:8888`](http://localhost:8888) from your browser.
 
