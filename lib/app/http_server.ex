@@ -18,11 +18,13 @@ defmodule App.HttpServer do
     # Creates a socket to listen for client connections.
     # `listen_socket` is bound to the listening socket.
 
-    {:ok, listen_socket} = :gen_tcp.listen(port, tcp_options)
+    case :gen_tcp.listen(port, tcp_options) do
+      {:ok, listen_socket} ->
+        IO.puts("\n🎧  Listening for connection requests on port #{port}...\n")
+        accept_loop(listen_socket)
+        _ -> nil
+    end
 
-    IO.puts("\n🎧  Listening for connection requests on port #{port}...\n")
-
-    accept_loop(listen_socket)
   end
 
   @doc """
@@ -72,8 +74,8 @@ defmodule App.HttpServer do
 
         request
 
-      {:error, _} ->
-        "Closed..."
+      {:error, reason} ->
+        generate_response(reason)
     end
   end
 
