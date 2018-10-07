@@ -22,9 +22,10 @@ defmodule App.HttpServer do
       {:ok, listen_socket} ->
         IO.puts("\n🎧  Listening for connection requests on port #{port}...\n")
         accept_loop(listen_socket)
-        _ -> nil
-    end
 
+      _ ->
+        nil
+    end
   end
 
   @doc """

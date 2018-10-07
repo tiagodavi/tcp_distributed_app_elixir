@@ -18,6 +18,7 @@ defmodule App.KickStarter do
     unless reason === :normal do
       start_server(port)
     end
+
     {:noreply, port}
   end
 
@@ -27,13 +28,15 @@ defmodule App.KickStarter do
   end
 
   defp start_server(port) do
-    unless Node.alive?, do: generate_node()
+    unless Node.alive?(), do: generate_node()
     monitor_nodes()
     nodes = Node.list()
+
     if(Enum.count(nodes) > 0) do
       node =
-        [node() | nodes ]
+        [node() | nodes]
         |> Enum.random()
+
       start_server(node, port)
     else
       start_server(node(), port)
@@ -52,7 +55,7 @@ defmodule App.KickStarter do
       n
     end)
     |> Enum.filter(&(Node.ping(&1) === :pong))
-    |> Enum.map(&(Node.monitor(&1, true)))
+    |> Enum.map(&Node.monitor(&1, true))
   end
 
   defp generate_node do
@@ -64,5 +67,4 @@ defmodule App.KickStarter do
       end
     end)
   end
-
 end
