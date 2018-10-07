@@ -57,5 +57,7 @@ Use /kaboom to raise an exception and start a new process
 (eventually running in new machines)
 http://localhost:8888/kaboom
 
+You can also try to stop the master node manually using Ctrl + C. The system should put the server to run into another node automatically.
+
 Then try to run again on the root:
 http://localhost:8888
