@@ -1,7 +1,7 @@
 defmodule HandlerTest do
   use ExUnit.Case, async: true
 
-  import App.Handler, only: [handle: 1]
+  import App.Handler, only: [handle: 2]
 
   test "GET /" do
     request = """
@@ -12,8 +12,8 @@ defmodule HandlerTest do
     \r
     """
 
-    response = handle(request)
+    response = handle(request, :http_server)
 
-    assert response =~ "I am the server"
+    assert response =~ "I am the node"
   end
 end
